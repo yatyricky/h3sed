@@ -656,6 +656,160 @@ class HeroPlugin(object):
             guibase.status("Copied hero %s data to clipboard.",
                            self._hero.name, flash=conf.StatusShortFlashLength, log=True)
 
+            """ combo check """
+            combos = {
+                "Admiral's Hat": [
+                    "Sea Captain's Hat",
+                    "Necklace of Ocean Guidance"
+                ],
+                "Pendant of Reflection": [
+                    "Surcoat of Counterpoise",
+                    "Boots of Polarity",
+                    "Garniture of Interference"
+                ],
+                "Ring of the Magi": [
+                    "Collar of Conjuring",
+                    "Ring of Conjuring",
+                    "Cape of Conjuring"
+                ],
+                "Angelic Alliance": [ 
+                    "Armor of Wonder",
+                    "Celestial Necklace of Bliss",
+                    "Helm of Heavenly Enlightenment",
+                    "Lion's Shield of Courage",
+                    "Sandals of the Saint",
+                    "Sword of Judgement",
+                 ],
+                "Titan's Thunder": [
+                    "Thunder Helmet",
+                    "Titan's Gladius",
+                    "Titan's Cuirass",
+                    "Sentinel's Shield",
+                ],
+                "Ironfist of the Ogre": [
+                    "Ogre's Club of Havoc",
+                    "Targ of the Rampaging Ogre",
+                    "Tunic of the Cyclops King",
+                    "Crown of the Supreme Magi",
+                ],
+                "Armor of the Damned": [
+                    "Blackshard of the Dead Knight",
+                    "Rib Cage",
+                    "Shield of the Yawning Dead",
+                    "Skull Helmet",
+                ],
+                "Power of the Dragon Father": [
+                    "Crown of Dragontooth",
+                    "Dragon Scale Armor",
+                    "Dragon Scale Shield",
+                    "Dragon Wing Tabard",
+                    "Dragonbone Greaves",
+                    "Necklace of Dragonteeth",
+                    "Quiet Eye of the Dragon",
+                    "Red Dragon Flame Tongue",
+                    "Still Eye of the Dragon",
+                ],
+                "Bow of the Sharpshooter": [
+                    "Bow of Elven Cherrywood",
+                    "Bowstring of the Unicorn's Mane",
+                    "Angel Feather Arrows",
+                ],
+                "Cornucopia": [
+                    "Everflowing Crystal Cloak",
+                    "Everpouring Vial of Mercury",
+                    "Eversmoking Ring of Sulfur",
+                    "Ring of Infinite Gems",
+                ],
+                "Elixir of Life": [
+                    "Ring of Life",
+                    "Ring of Vitality",
+                    "Vial of Lifeblood",
+                ],
+                "Statue of Legion": [
+                    "Head of Legion",
+                    "Arms of Legion",
+                    "Torso of Legion",
+                    "Loins of Legion",
+                    "Legs of Legion",
+                ],
+                "Wizard's Well": [
+                    "Charm of Mana",
+                    "Talisman of Mana",
+                    "Mystic Orb of Mana",
+                ],
+                "Golden Goose": [
+                    "Endless Purse of Gold",
+                    "Endless Bag of Gold",
+                    "Endless Sack of Gold",
+                ],
+                "Cloak of the Undead King": [
+                    "Amulet of the Undertaker",
+                    "Dead Man's Boots",
+                    "Vampire's Cowl",
+                ],
+                "Diplomat's Cloak": [
+                    "Statesman's Medal",
+                    "Diplomat's Ring",
+                    "Ambassador's Sash",
+                ],
+            }
+
+            unequipped_resource = [
+                "Cornucopia",
+                "Eversmoking Ring of Sulfur",
+                "Ring of Infinite Gems",
+                "Everflowing Crystal Cloak",
+                "Everpouring Vial of Mercury",
+
+                "Golden Goose",
+                "Endless Bag of Gold",
+                "Endless Purse of Gold",
+                "Endless Sack of Gold",
+
+                "Statue of Legion",
+                "Torso of Legion",
+                "Arms of Legion",
+                "Head of Legion",
+                "Legs of Legion",
+                "Loins of Legion",
+
+                "Inexhaustible Cart of Ore",
+                "Inexhaustible Cart of Lumber",
+            ]
+
+            out_str = ""
+            all_artifacts = {}
+            for index in self._pages.values():
+                i_hero = self._heroes[index]
+                saved = yaml.safe_load(i_hero.yaml.replace("Scroll:", "Scroll"))[i_hero.name]
+
+                for j_art in (saved["inventory"] or []) + list((saved["artifacts"] or {}).values()):
+                    if j_art is not None:
+                        if j_art not in all_artifacts:
+                            all_artifacts[j_art] = []
+                        all_artifacts[j_art].append(i_hero.name)
+
+            for k, v in combos.items():
+                count = []
+                for part in v:
+                    if part in all_artifacts:
+                        count.append(len(all_artifacts[part]))
+                    else:
+                        count.append(0)
+                incomplete_count = min(count)
+                if incomplete_count > 0:
+                    out_str = out_str + "<b>" + k + " x" + str(incomplete_count) + "</b><br/>"
+                    for part in v:
+                        out_str = out_str + " - " + part + ": [" + ", ".join(all_artifacts[part]) + "]<br/>"
+
+            if len(out_str) > 0:
+                out_str = "Incomplete combo found!<br>" + out_str
+            else:
+                out_str = "All combos are complete."
+
+            dlg = None
+            dlg = controls.HtmlDialog(self._panel.TopLevelParent, "Report", out_str, {}, {}, autowidth_links=True, style=wx.RESIZE_BORDER)
+            wx.CallAfter(dlg.ShowModal)
 
     def on_paste_hero(self, event=None):
         """Handler for pasting a hero, sets data from clipboard to hero."""
