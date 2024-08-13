@@ -657,125 +657,132 @@ class HeroPlugin(object):
                            self._hero.name, flash=conf.StatusShortFlashLength, log=True)
 
             """ combo check """
-            combos = {
-                "Admiral's Hat": [
-                    "Sea Captain's Hat",
-                    "Necklace of Ocean Guidance"
-                ],
-                "Pendant of Reflection": [
-                    "Surcoat of Counterpoise",
-                    "Boots of Polarity",
-                    "Garniture of Interference"
-                ],
-                "Ring of the Magi": [
-                    "Collar of Conjuring",
-                    "Ring of Conjuring",
-                    "Cape of Conjuring"
-                ],
-                "Angelic Alliance": [ 
-                    "Armor of Wonder",
-                    "Celestial Necklace of Bliss",
-                    "Helm of Heavenly Enlightenment",
-                    "Lion's Shield of Courage",
-                    "Sandals of the Saint",
-                    "Sword of Judgement",
-                 ],
-                "Titan's Thunder": [
-                    "Thunder Helmet",
-                    "Titan's Gladius",
-                    "Titan's Cuirass",
-                    "Sentinel's Shield",
-                ],
-                "Ironfist of the Ogre": [
-                    "Ogre's Club of Havoc",
-                    "Targ of the Rampaging Ogre",
-                    "Tunic of the Cyclops King",
-                    "Crown of the Supreme Magi",
-                ],
-                "Armor of the Damned": [
-                    "Blackshard of the Dead Knight",
-                    "Rib Cage",
-                    "Shield of the Yawning Dead",
-                    "Skull Helmet",
-                ],
-                "Power of the Dragon Father": [
-                    "Crown of Dragontooth",
-                    "Dragon Scale Armor",
-                    "Dragon Scale Shield",
-                    "Dragon Wing Tabard",
-                    "Dragonbone Greaves",
-                    "Necklace of Dragonteeth",
-                    "Quiet Eye of the Dragon",
-                    "Red Dragon Flame Tongue",
-                    "Still Eye of the Dragon",
-                ],
-                "Bow of the Sharpshooter": [
-                    "Bow of Elven Cherrywood",
-                    "Bowstring of the Unicorn's Mane",
-                    "Angel Feather Arrows",
-                ],
-                "Cornucopia": [
-                    "Everflowing Crystal Cloak",
-                    "Everpouring Vial of Mercury",
-                    "Eversmoking Ring of Sulfur",
-                    "Ring of Infinite Gems",
-                ],
-                "Elixir of Life": [
-                    "Ring of Life",
-                    "Ring of Vitality",
-                    "Vial of Lifeblood",
-                ],
-                "Statue of Legion": [
-                    "Head of Legion",
-                    "Arms of Legion",
-                    "Torso of Legion",
-                    "Loins of Legion",
-                    "Legs of Legion",
-                ],
-                "Wizard's Well": [
-                    "Charm of Mana",
-                    "Talisman of Mana",
-                    "Mystic Orb of Mana",
-                ],
-                "Golden Goose": [
-                    "Endless Purse of Gold",
-                    "Endless Bag of Gold",
-                    "Endless Sack of Gold",
-                ],
-                "Cloak of the Undead King": [
-                    "Amulet of the Undertaker",
-                    "Dead Man's Boots",
-                    "Vampire's Cowl",
-                ],
-                "Diplomat's Cloak": [
-                    "Statesman's Medal",
-                    "Diplomat's Ring",
-                    "Ambassador's Sash",
-                ],
+            COMBOS = metadata.Store.get("artifact_combos", self.savefile.version)
+            ARTIFACT_SLOTS = metadata.Store.get("artifact_slots", self.savefile.version)
+            ARTIFACT_VALUABLES = metadata.Store.get("artifact_valuables", self.savefile.version)
+            SLOT_CAPACITY = metadata.Store.get("slot_capacity", self.savefile.version)
+
+            slot_2_col = {
+                "helm": 1,
+                "armor": 2,
+                "weapon": 3,
+                "shield": 4,
+                "neck": 5,
+                "hand": 6,
+                "feet": 8,
+                "cloak": 9,
+                "side": 10,
             }
 
-            unequipped_resource = [
-                "Cornucopia",
-                "Eversmoking Ring of Sulfur",
-                "Ring of Infinite Gems",
-                "Everflowing Crystal Cloak",
-                "Everpouring Vial of Mercury",
 
-                "Golden Goose",
-                "Endless Bag of Gold",
-                "Endless Purse of Gold",
-                "Endless Sack of Gold",
+            out_str = ""
+            out_csv = [["Hero", "Helm", "Armor", "Weapon", "Shield", "Necklace", "Ring1", "Ring2", "Boots", "Cape", "Misc1", "Misc2", "Misc3", "Misc4", "Misc5"]]
+            csv_artifacts = {
+                "helm": [],
+                "armor": [],
+                "weapon": [],
+                "shield": [],
+                "neck": [],
+                "hand": [],
+                "feet": [],
+                "cloak": [],
+                "side": [],
+            }
+            all_artifacts = {}
 
-                "Statue of Legion",
-                "Torso of Legion",
-                "Arms of Legion",
-                "Head of Legion",
-                "Legs of Legion",
-                "Loins of Legion",
+            def loop_art(l_art, hero_name):
+                if l_art not in all_artifacts:
+                    all_artifacts[l_art] = []
+                all_artifacts[l_art].append(hero_name)
 
-                "Inexhaustible Cart of Ore",
-                "Inexhaustible Cart of Lumber",
-            ]
+            for index in self._pages.values():
+                i_hero = self._heroes[index]
+                i_hero_name = i_hero.name
+                saved = yaml.safe_load(i_hero.yaml.replace("Scroll:", "Scroll"))[i_hero_name]
+                slots = {
+                    "helm": [],
+                    "armor": [],
+                    "weapon": [],
+                    "shield": [],
+                    "neck": [],
+                    "hand": [],
+                    "feet": [],
+                    "cloak": [],
+                    "side": [],
+                }
+                for j_art in list((saved["artifacts"] or {}).values()):
+                    if j_art is not None:
+                        loop_art(j_art, i_hero_name)
+                        if not j_art.startswith("Spell Scroll"):
+                            for idx, slot in enumerate(ARTIFACT_SLOTS[j_art]):
+                                if idx == 0:
+                                    slots[slot].append(j_art)
+                                else:
+                                    slots[slot].append("lock")
+
+                for slot, equipped in slots.items():
+                    l_missing = SLOT_CAPACITY[slot] - len(equipped)
+                    if l_missing < 0:
+                        raise ValueError("What the hell?" + slot)
+
+                    for cnt in range(l_missing):
+                        equipped.append("")
+
+                csv_row = [i_hero_name]
+                csv_row = csv_row + slots["helm"]
+                csv_row = csv_row + slots["armor"]
+                csv_row = csv_row + slots["weapon"]
+                csv_row = csv_row + slots["shield"]
+                csv_row = csv_row + slots["neck"]
+                csv_row = csv_row + slots["hand"]
+                csv_row = csv_row + slots["feet"]
+                csv_row = csv_row + slots["cloak"]
+                csv_row = csv_row + slots["side"]
+                out_csv.append(csv_row)
+
+                for j_art in (saved["inventory"] or []):
+                    if j_art is not None:
+                        loop_art(j_art, i_hero_name)
+                        if not j_art.startswith("Spell Scroll"):
+                            l_art_slot = ARTIFACT_SLOTS[j_art][0]
+                            csv_artifacts[l_art_slot].append(j_art + " - " + i_hero_name)
+                        else:
+                            csv_artifacts["side"].append(j_art + " - " + i_hero_name)
+
+            while True:
+                csv_ex_row = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+                has_value = False
+                for l_slot, l_ex_art in csv_artifacts.items():
+                    if len(l_ex_art) > 0:
+                        has_value = True
+                        start_col = slot_2_col[l_slot]
+                        slots_count = SLOT_CAPACITY[l_slot]
+                        for k in range(slots_count):
+                            k_ele = l_ex_art.pop()
+                            csv_ex_row[start_col + k] = k_ele
+                            if len(l_ex_art) == 0:
+                                break
+
+                if not has_value:
+                    break
+                else:
+                    out_csv.append(csv_ex_row)
+
+            """csv report"""
+            for row in out_csv:
+                for idx, cell in enumerate(row):
+                    if " - " in cell:
+                        l_split_cell = cell.split(" - ")
+                        l_art_name = l_split_cell[0]
+                        if l_art_name in ARTIFACT_VALUABLES:
+                            row[idx] = str(ARTIFACT_VALUABLES[l_art_name]) + cell
+
+            csv_str = ""
+            for row in out_csv:
+                csv_str = csv_str + ",".join(row) + "\n"
+
+            with open("homm3_report.csv", "w") as fh_csv:
+                fh_csv.write(csv_str)
 
             out_str = ""
             all_artifacts = {}
@@ -789,7 +796,7 @@ class HeroPlugin(object):
                             all_artifacts[j_art] = []
                         all_artifacts[j_art].append(i_hero.name)
 
-            for k, v in combos.items():
+            for k, v in COMBOS.items():
                 count = []
                 for part in v:
                     if part in all_artifacts:

@@ -160,6 +160,117 @@ ArtifactSpells = {
 }
 
 
+ArtifactCombos = {
+    "Admiral's Hat": [
+        "Sea Captain's Hat",
+        "Necklace of Ocean Guidance"
+    ],
+    "Ring of the Magi": [
+        "Collar of Conjuring",
+        "Ring of Conjuring",
+        "Cape of Conjuring"
+    ],
+    "Angelic Alliance": [
+        "Armor of Wonder",
+        "Celestial Necklace of Bliss",
+        "Helm of Heavenly Enlightenment",
+        "Lion's Shield of Courage",
+        "Sandals of the Saint",
+        "Sword of Judgement",
+    ],
+    "Titan's Thunder": [
+        "Thunder Helmet",
+        "Titan's Gladius",
+        "Titan's Cuirass",
+        "Sentinel's Shield",
+    ],
+    "Armor of the Damned": [
+        "Blackshard of the Dead Knight",
+        "Rib Cage",
+        "Shield of the Yawning Dead",
+        "Skull Helmet",
+    ],
+    "Power of the Dragon Father": [
+        "Crown of Dragontooth",
+        "Dragon Scale Armor",
+        "Dragon Scale Shield",
+        "Dragon Wing Tabard",
+        "Dragonbone Greaves",
+        "Necklace of Dragonteeth",
+        "Quiet Eye of the Dragon",
+        "Red Dragon Flame Tongue",
+        "Still Eye of the Dragon",
+    ],
+    "Bow of the Sharpshooter": [
+        "Bow of Elven Cherrywood",
+        "Bowstring of the Unicorn's Mane",
+        "Angel Feather Arrows",
+    ],
+    "Cornucopia": [
+        "Everflowing Crystal Cloak",
+        "Everpouring Vial of Mercury",
+        "Eversmoking Ring of Sulfur",
+        "Ring of Infinite Gems",
+    ],
+    "Elixir of Life": [
+        "Ring of Life",
+        "Ring of Vitality",
+        "Vial of Lifeblood",
+    ],
+    "Statue of Legion": [
+        "Head of Legion",
+        "Arms of Legion",
+        "Torso of Legion",
+        "Loins of Legion",
+        "Legs of Legion",
+    ],
+    "Wizard's Well": [
+        "Charm of Mana",
+        "Talisman of Mana",
+        "Mystic Orb of Mana",
+    ],
+    "Cloak of the Undead King": [
+        "Amulet of the Undertaker",
+        "Dead Man's Boots",
+        "Vampire's Cowl",
+    ],
+}
+
+
+ArtifactValuables = {
+    "Admiral's Hat": 2,
+    "Ring of the Magi": 2,
+    "Angelic Alliance": 2,
+    "Titan's Thunder": 2,
+    "Armor of the Damned": 2,
+    "Power of the Dragon Father": 2,
+    "Bow of the Sharpshooter": 2,
+    "Cornucopia": 2,
+    "Elixir of Life": 2,
+    "Statue of Legion": 2,
+    "Wizard's Well": 2,
+    "Cloak of the Undead King": 2,
+
+    "Torso of Legion": 1,
+    "Head of Legion": 1,
+    "Legs of Legion": 1,
+    "Loins of Legion": 1,
+    "Arms of Legion": 1,
+
+    "Endless Bag of Gold": 1,
+    "Endless Purse of Gold": 1,
+    "Endless Sack of Gold": 1,
+    "Inexhaustible Cart of Lumber": 1,
+    "Inexhaustible Cart of Ore": 1,
+    "Everpouring Vial of Mercury": 1,
+    "Everflowing Crystal Cloak": 1,
+    "Eversmoking Ring of Sulfur": 1,
+    "Ring of Infinite Gems": 1,
+
+    "Vial of Dragon Blood": 2,
+    "Armageddon's Blade": 2,
+}
+
 
 def init():
     """Initializes artifacts and creatures for Shadow of Death."""
@@ -169,11 +280,13 @@ def init():
         Store.add("artifacts", [k for k, v in ArtifactSlots.items() if v[0] == slot],
                   version=PROPS["name"], category=slot)
 
-    Store.add("artifact_slots",  ArtifactSlots,  version=PROPS["name"])
-    Store.add("artifact_spells", ArtifactSpells, version=PROPS["name"])
-    Store.add("artifact_stats",  ArtifactStats,  version=PROPS["name"])
-    Store.add("creatures",       Creatures,      version=PROPS["name"])
-    Store.add("ids",             IDs,            version=PROPS["name"])
+    Store.add("artifact_slots",     ArtifactSlots,     version=PROPS["name"])
+    Store.add("artifact_spells",    ArtifactSpells,    version=PROPS["name"])
+    Store.add("artifact_stats",     ArtifactStats,     version=PROPS["name"])
+    Store.add("artifact_combos",    ArtifactCombos,    version=PROPS["name"])
+    Store.add("artifact_valuables", ArtifactValuables, version=PROPS["name"])
+    Store.add("creatures",          Creatures,         version=PROPS["name"])
+    Store.add("ids",                IDs,               version=PROPS["name"])
     for artifact, spells in ArtifactSpells.items():
         Store.add("spells", spells, version=PROPS["name"], category=artifact)
 

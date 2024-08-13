@@ -97,6 +97,31 @@ ArtifactSpells = {
 }
 
 
+ArtifactCombos = {
+}
+
+
+ArtifactValuables = {
+    "Torso of Legion": 1,
+    "Head of Legion": 1,
+    "Legs of Legion": 1,
+    "Loins of Legion": 1,
+    "Arms of Legion": 1,
+
+    "Endless Bag of Gold": 1,
+    "Endless Purse of Gold": 1,
+    "Endless Sack of Gold": 1,
+    "Inexhaustible Cart of Lumber": 1,
+    "Inexhaustible Cart of Ore": 1,
+    "Everpouring Vial of Mercury": 1,
+    "Everflowing Crystal Cloak": 1,
+    "Eversmoking Ring of Sulfur": 1,
+    "Ring of Infinite Gems": 1,
+
+    "Vial of Dragon Blood": 2,
+    "Armageddon's Blade": 2,
+}
+
 
 # Since savefile format is unknown, hero structs are identified heuristically,
 # by matching byte patterns.
@@ -181,11 +206,13 @@ def init():
         Store.add("artifacts", [k for k, v in ArtifactSlots.items() if v[0] == slot],
                   version=PROPS["name"], category=slot)
 
-    Store.add("artifact_slots",  ArtifactSlots,  version=PROPS["name"])
-    Store.add("artifact_spells", ArtifactSpells, version=PROPS["name"])
-    Store.add("artifact_stats",  ArtifactStats,  version=PROPS["name"])
-    Store.add("creatures",       Creatures,      version=PROPS["name"])
-    Store.add("ids",             IDs,            version=PROPS["name"])
+    Store.add("artifact_slots",     ArtifactSlots,     version=PROPS["name"])
+    Store.add("artifact_spells",    ArtifactSpells,    version=PROPS["name"])
+    Store.add("artifact_stats",     ArtifactStats,     version=PROPS["name"])
+    Store.add("artifact_combos",    ArtifactCombos,    version=PROPS["name"])
+    Store.add("artifact_valuables", ArtifactValuables, version=PROPS["name"])
+    Store.add("creatures",          Creatures,         version=PROPS["name"])
+    Store.add("ids",                IDs,               version=PROPS["name"])
     for artifact, spells in ArtifactSpells.items():
         Store.add("spells", spells, version=PROPS["name"], category=artifact)
 
