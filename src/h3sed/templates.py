@@ -1278,7 +1278,7 @@ from h3sed import templates
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Inventory Report</title>
     <style>
         body {
             background-color: #644325;
@@ -1287,13 +1287,19 @@ from h3sed import templates
         }
 
         .container {
-            margin-left: 40px;
-            margin-right: 40px;
+            margin-left: 20px;
+            margin-right: 20px;
         }
 
         table, th, td {
             border: 1px solid #4F3F2F;
             border-collapse: collapse;
+        }
+
+        table {
+            display: inline-block;
+            vertical-align: top;
+            margin: 6px;
         }
 
         td {
@@ -1362,7 +1368,6 @@ from h3sed import templates
             </tr>
     %endfor
         </table>
-        <br />
 %endfor
         <h2>Inventory</h2>
         <table>

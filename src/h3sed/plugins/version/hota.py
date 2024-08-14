@@ -324,51 +324,51 @@ ArtifactCombos = {
         "Necklace of Ocean Guidance"
     ],
     "Pendant of Reflection": [
+        "Garniture of Interference"
         "Surcoat of Counterpoise",
         "Boots of Polarity",
-        "Garniture of Interference"
     ],
     "Ring of the Magi": [
-        "Collar of Conjuring",
         "Ring of Conjuring",
+        "Collar of Conjuring",
         "Cape of Conjuring"
     ],
     "Angelic Alliance": [
+        "Sword of Judgement",
+        "Lion's Shield of Courage",
+        "Helm of Heavenly Enlightenment",
         "Armor of Wonder",
         "Celestial Necklace of Bliss",
-        "Helm of Heavenly Enlightenment",
-        "Lion's Shield of Courage",
         "Sandals of the Saint",
-        "Sword of Judgement",
     ],
     "Titan's Thunder": [
-        "Thunder Helmet",
         "Titan's Gladius",
-        "Titan's Cuirass",
         "Sentinel's Shield",
+        "Thunder Helmet",
+        "Titan's Cuirass",
     ],
     "Ironfist of the Ogre": [
         "Ogre's Club of Havoc",
         "Targ of the Rampaging Ogre",
-        "Tunic of the Cyclops King",
         "Crown of the Supreme Magi",
+        "Tunic of the Cyclops King",
     ],
     "Armor of the Damned": [
         "Blackshard of the Dead Knight",
-        "Rib Cage",
         "Shield of the Yawning Dead",
         "Skull Helmet",
+        "Rib Cage",
     ],
     "Power of the Dragon Father": [
+        "Red Dragon Flame Tongue",
+        "Dragon Scale Shield",
         "Crown of Dragontooth",
         "Dragon Scale Armor",
-        "Dragon Scale Shield",
+        "Quiet Eye of the Dragon",
+        "Still Eye of the Dragon",
+        "Necklace of Dragonteeth",
         "Dragon Wing Tabard",
         "Dragonbone Greaves",
-        "Necklace of Dragonteeth",
-        "Quiet Eye of the Dragon",
-        "Red Dragon Flame Tongue",
-        "Still Eye of the Dragon",
     ],
     "Bow of the Sharpshooter": [
         "Bow of Elven Cherrywood",
@@ -376,10 +376,10 @@ ArtifactCombos = {
         "Angel Feather Arrows",
     ],
     "Cornucopia": [
-        "Everflowing Crystal Cloak",
-        "Everpouring Vial of Mercury",
         "Eversmoking Ring of Sulfur",
         "Ring of Infinite Gems",
+        "Everflowing Crystal Cloak",
+        "Everpouring Vial of Mercury",
     ],
     "Elixir of Life": [
         "Ring of Life",
@@ -387,11 +387,11 @@ ArtifactCombos = {
         "Vial of Lifeblood",
     ],
     "Statue of Legion": [
-        "Head of Legion",
-        "Arms of Legion",
-        "Torso of Legion",
-        "Loins of Legion",
         "Legs of Legion",
+        "Loins of Legion",
+        "Torso of Legion",
+        "Arms of Legion",
+        "Head of Legion",
     ],
     "Wizard's Well": [
         "Charm of Mana",
@@ -405,12 +405,12 @@ ArtifactCombos = {
     ],
     "Cloak of the Undead King": [
         "Amulet of the Undertaker",
-        "Dead Man's Boots",
         "Vampire's Cowl",
+        "Dead Man's Boots",
     ],
     "Diplomat's Cloak": [
-        "Statesman's Medal",
         "Diplomat's Ring",
+        "Statesman's Medal",
         "Ambassador's Sash",
     ],
 }
