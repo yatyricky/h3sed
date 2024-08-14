@@ -1,3 +1,4 @@
 __pycache__
 build/*.exe
 build/h3sed.ini
+build/report.html

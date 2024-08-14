@@ -63,6 +63,386 @@ def make_category_diff(v1, v2):
     return diff
 
 
+ArtifactRes = {
+    "Admiral's Hat": "Artifact_Admiral's_Hat.gif",
+    "Ambassador's Sash": "Artifact_Ambassador's_Sash.gif",
+    "Amulet of the Undertaker": "Artifact_Amulet_of_the_Undertaker.gif",
+    "Angel Feather Arrows": "Artifact_Angel_Feather_Arrows.gif",
+    "Angel Wings": "Artifact_Angel_Wings.gif",
+    "Angelic Alliance": "Artifact_Angelic_Alliance.gif",
+    "Armageddon's Blade": "Artifact_Armageddon's_Blade.gif",
+    "Armor of the Damned": "Artifact_Armor_of_the_Damned.gif",
+    "Armor of Wonder": "Artifact_Armor_of_Wonder.gif",
+    "Arms of Legion": "Artifact_Arms_of_Legion.gif",
+    "Badge of Courage": "Artifact_Badge_of_Courage.gif",
+    "Bird of Perception": "Artifact_Bird_of_Perception.gif",
+    "Blackshard of the Dead Knight": "Artifact_Blackshard_of_the_Dead_Knight.gif",
+    "Boots of Levitation": "Artifact_Boots_of_Levitation.gif",
+    "Boots of Polarity": "Artifact_Boots_of_Polarity.gif",
+    "Boots of Speed": "Artifact_Boots_of_Speed.gif",
+    "Bow of Elven Cherrywood": "Artifact_Bow_of_Elven_Cherrywood.gif",
+    "Bow of the Sharpshooter": "Artifact_Bow_of_the_Sharpshooter.gif",
+    "Bowstring of the Unicorn's Mane": "Artifact_Bowstring_of_the_Unicorn's_Mane.gif",
+    "Breastplate of Brimstone": "Artifact_Breastplate_of_Brimstone.gif",
+    "Breastplate of Petrified Wood": "Artifact_Breastplate_of_Petrified_Wood.gif",
+    "Buckler of the Gnoll King": "Artifact_Buckler_of_the_Gnoll_King.gif",
+    "Cape of Conjuring": "Artifact_Cape_of_Conjuring.gif",
+    "Cape of Silence": "Artifact_Cape_of_Silence.gif",
+    "Cape of Velocity": "Artifact_Cape_of_Velocity.gif",
+    "Cards of Prophecy": "Artifact_Cards_of_Prophecy.gif",
+    "Celestial Necklace of Bliss": "Artifact_Celestial_Necklace_of_Bliss.gif",
+    "Centaur's Axe": "Artifact_Centaur's_Axe.gif",
+    "Charm of Eclipse": "Artifact_Charm_of_Eclipse.gif",
+    "Charm of Mana": "Artifact_Charm_of_Mana.gif",
+    "Cloak of the Undead King": "Artifact_Cloak_of_the_Undead_King.gif",
+    "Clover of Fortune": "Artifact_Clover_of_Fortune.gif",
+    "Collar of Conjuring": "Artifact_Collar_of_Conjuring.gif",
+    "Cornucopia": "Artifact_Cornucopia.gif",
+    "Crest of Valor": "Artifact_Crest_of_Valor.gif",
+    "Crown of Dragontooth": "Artifact_Crown_of_Dragontooth.gif",
+    "Crown of the Five Seas": "Artifact_Crown_of_the_Five_Seas.gif",
+    "Crown of the Supreme Magi": "Artifact_Crown_of_the_Supreme_Magi.gif",
+    "Dead Man's Boots": "Artifact_Dead_Man's_Boots.gif",
+    "Demon's Horseshoe": "Artifact_Demon's_Horseshoe.gif",
+    "Diplomat's Cloak": "Artifact_Diplomat's_Cloak.gif",
+    "Diplomat's Ring": "Artifact_Diplomat's_Ring.gif",
+    "Dragon Scale Armor": "Artifact_Dragon_Scale_Armor.gif",
+    "Dragon Scale Shield": "Artifact_Dragon_Scale_Shield.gif",
+    "Dragon Wing Tabard": "Artifact_Dragon_Wing_Tabard.gif",
+    "Dragonbone Greaves": "Artifact_Dragonbone_Greaves.gif",
+    "Elixir of Life": "Artifact_Elixir_of_Life.gif",
+    "Emblem of Cognizance": "Artifact_Emblem_of_Cognizance.gif",
+    "Endless Bag of Gold": "Artifact_Endless_Bag_of_Gold.gif",
+    "Endless Purse of Gold": "Artifact_Endless_Purse_of_Gold.gif",
+    "Endless Sack of Gold": "Artifact_Endless_Sack_of_Gold.gif",
+    "Equestrian's Gloves": "Artifact_Equestrian's_Gloves.gif",
+    "Everflowing Crystal Cloak": "Artifact_Everflowing_Crystal_Cloak.gif",
+    "Everpouring Vial of Mercury": "Artifact_Everpouring_Vial_of_Mercury.gif",
+    "Eversmoking Ring of Sulfur": "Artifact_Eversmoking_Ring_of_Sulfur.gif",
+    "Garniture of Interference": "Artifact_Garniture_of_Interference.gif",
+    "Glyph of Gallantry": "Artifact_Glyph_of_Gallantry.gif",
+    "Golden Bow": "Artifact_Golden_Bow.gif",
+    "Golden Goose": "Artifact_Golden_Goose.gif",
+    "Greater Gnoll's Flail": "Artifact_Greater_Gnoll's_Flail.gif",
+    "Head of Legion": "Artifact_Head_of_Legion.gif",
+    "Hellstorm Helmet": "Artifact_Hellstorm_Helmet.gif",
+    "Helm of Chaos": "Artifact_Helm_of_Chaos.gif",
+    "Helm of Heavenly Enlightenment": "Artifact_Helm_of_Heavenly_Enlightenment.gif",
+    "Helm of the Alabaster Unicorn": "Artifact_Helm_of_the_Alabaster_Unicorn.gif",
+    "Hideous Mask": "Artifact_Hideous_Mask.gif",
+    "Horn of the Abyss": "Artifact_Horn_of_the_Abyss.gif",
+    "Hourglass of the Evil Hour": "Artifact_Hourglass_of_the_Evil_Hour.gif",
+    "Inexhaustible Cart of Lumber": "Artifact_Inexhaustible_Cart_of_Lumber.gif",
+    "Inexhaustible Cart of Ore": "Artifact_Inexhaustible_Cart_of_Ore.gif",
+    "Ironfist of the Ogre": "Artifact_Ironfist_of_the_Ogre.gif",
+    "Ladybird of Luck": "Artifact_Ladybird_of_Luck.gif",
+    "Legs of Legion": "Artifact_Legs_of_Legion.gif",
+    "Lion's Shield of Courage": "Artifact_Lion's_Shield_of_Courage.gif",
+    "Loins of Legion": "Artifact_Loins_of_Legion.gif",
+    "Mystic Orb of Mana": "Artifact_Mystic_Orb_of_Mana.gif",
+    "Necklace of Dragonteeth": "Artifact_Necklace_of_Dragonteeth.gif",
+    "Necklace of Ocean Guidance": "Artifact_Necklace_of_Ocean_Guidance.gif",
+    "Necklace of Swiftness": "Artifact_Necklace_of_Swiftness.gif",
+    "Ogre's Club of Havoc": "Artifact_Ogre's_Club_of_Havoc.gif",
+    "Orb of Driving Rain": "Artifact_Orb_of_Driving_Rain.gif",
+    "Orb of Inhibition": "Artifact_Orb_of_Inhibition.gif",
+    "Orb of Silt": "Artifact_Orb_of_Silt.gif",
+    "Orb of Tempestuous Fire": "Artifact_Orb_of_Tempestuous_Fire.gif",
+    "Orb of the Firmament": "Artifact_Orb_of_the_Firmament.gif",
+    "Orb of Vulnerability": "Artifact_Orb_of_Vulnerability.gif",
+    "Pendant of Courage": "Artifact_Pendant_of_Courage.gif",
+    "Pendant of Death": "Artifact_Pendant_of_Death.gif",
+    "Pendant of Dispassion": "Artifact_Pendant_of_Dispassion.gif",
+    "Pendant of Downfall": "Artifact_Pendant_of_Downfall.gif",
+    "Pendant of Free Will": "Artifact_Pendant_of_Free_Will.gif",
+    "Pendant of Holiness": "Artifact_Pendant_of_Holiness.gif",
+    "Pendant of Life": "Artifact_Pendant_of_Life.gif",
+    "Pendant of Negativity": "Artifact_Pendant_of_Negativity.gif",
+    "Pendant of Reflection": "Artifact_Pendant_of_Reflection.gif",
+    "Pendant of Second Sight": "Artifact_Pendant_of_Second_Sight.gif",
+    "Pendant of Total Recall": "Artifact_Pendant_of_Total_Recall.gif",
+    "Plate of Dying Light": "Artifact_Plate_of_Dying_Light.gif",
+    "Power of the Dragon Father": "Artifact_Power_of_the_Dragon_Father.gif",
+    "Quiet Eye of the Dragon": "Artifact_Quiet_Eye_of_the_Dragon.gif",
+    "Recanter's Cloak": "Artifact_Recanter's_Cloak.gif",
+    "Red Dragon Flame Tongue": "Artifact_Red_Dragon_Flame_Tongue.gif",
+    "Rib Cage": "Artifact_Rib_Cage.gif",
+    "Ring of Conjuring": "Artifact_Ring_of_Conjuring.gif",
+    "Ring of Infinite Gems": "Artifact_Ring_of_Infinite_Gems.gif",
+    "Ring of Life": "Artifact_Ring_of_Life.gif",
+    "Ring of Oblivion": "Artifact_Ring_of_Oblivion.gif",
+    "Ring of Suppression": "Artifact_Ring_of_Suppression.gif",
+    "Ring of the Magi": "Artifact_Ring_of_the_Magi.gif",
+    "Ring of the Wayfarer": "Artifact_Ring_of_the_Wayfarer.gif",
+    "Ring of Vitality": "Artifact_Ring_of_Vitality.gif",
+    "Royal Armor of Nix": "Artifact_Royal_Armor_of_Nix.gif",
+    "Runes of Imminency": "Artifact_Runes_of_Imminency.gif",
+    "Sandals of the Saint": "Artifact_Sandals_of_the_Saint.gif",
+    "Scales of the Greater Basilisk": "Artifact_Scales_of_the_Greater_Basilisk.gif",
+    "Sea Captain's Hat": "Artifact_Sea_Captain's_Hat.gif",
+    "Seal of Sunset": "Artifact_Seal_of_Sunset.gif",
+    "Sentinel's Shield": "Artifact_Sentinel's_Shield.gif",
+    "Shackles of War": "Artifact_Shackles_of_War.gif",
+    "Shaman's Puppet": "Artifact_Shaman's_Puppet.gif",
+    "Shield of Naval Glory": "Artifact_Shield_of_Naval_Glory.gif",
+    "Shield of the Damned": "Artifact_Shield_of_the_Damned.gif",
+    "Shield of the Dwarven Lords": "Artifact_Shield_of_the_Dwarven_Lords.gif",
+    "Shield of the Yawning Dead": "Artifact_Shield_of_the_Yawning_Dead.gif",
+    "Skull Helmet": "Artifact_Skull_Helmet.gif",
+    "Sleepkeeper": "Artifact_Sleepkeeper.gif",
+    "Speculum": "Artifact_Speculum.gif",
+    "Spellbinder's Hat": "Artifact_Spellbinder's_Hat.gif",
+    "Sphere of Permanence": "Artifact_Sphere_of_Permanence.gif",
+    "Spirit of Oppression": "Artifact_Spirit_of_Oppression.gif",
+    "Spyglass": "Artifact_Spyglass.gif",
+    "Statesman's Medal": "Artifact_Statesman's_Medal.gif",
+    "Statue of Legion": "Artifact_Statue_of_Legion.gif",
+    "Still Eye of the Dragon": "Artifact_Still_Eye_of_the_Dragon.gif",
+    "Stoic Watchman": "Artifact_Stoic_Watchman.gif",
+    "Surcoat of Counterpoise": "Artifact_Surcoat_of_Counterpoise.gif",
+    "Sword of Hellfire": "Artifact_Sword_of_Hellfire.gif",
+    "Sword of Judgement": "Artifact_Sword_of_Judgement.gif",
+    "Talisman of Mana": "Artifact_Talisman_of_Mana.gif",
+    "Targ of the Rampaging Ogre": "Artifact_Targ_of_the_Rampaging_Ogre.gif",
+    "Thunder Helmet": "Artifact_Thunder_Helmet.gif",
+    "Titan's Cuirass": "Artifact_Titan's_Cuirass.gif",
+    "Titan's Gladius": "Artifact_Titan's_Gladius.gif",
+    "Titan's Thunder": "Artifact_Titan's_Thunder.gif",
+    "Tome of Air": "Artifact_Tome_of_Air.gif",
+    "Tome of Earth": "Artifact_Tome_of_Earth.gif",
+    "Tome of Fire": "Artifact_Tome_of_Fire.gif",
+    "Tome of Water": "Artifact_Tome_of_Water.gif",
+    "Torso of Legion": "Artifact_Torso_of_Legion.gif",
+    "Trident of Dominion": "Artifact_Trident_of_Dominion.gif",
+    "Tunic of the Cyclops King": "Artifact_Tunic_of_the_Cyclops_King.gif",
+    "Vampire's Cowl": "Artifact_Vampire's_Cowl.gif",
+    "Vial of Dragon Blood": "Artifact_Vial_of_Dragon_Blood.gif",
+    "Vial of Lifeblood": "Artifact_Vial_of_Lifeblood.gif",
+    "Wayfarer's Boots": "Artifact_Wayfarer's_Boots.gif",
+    "Wizard's Well": "Artifact_Wizard's_Well.gif",
+    "lock": "lock.png",
+}
+
+HeroRes = {
+    "Adela": "Hero_Adela.png",
+    "Adelaide": "Hero_Adelaide_(HotA).png",
+    "Adrienne": "Hero_Adrienne.png",
+    "Aenain": "Hero_Aenain_(HotA).png",
+    "Aeris": "Hero_Aeris.png",
+    "Agar": "Hero_Agar.png",
+    "Aine": "Hero_Aine.png",
+    "Aislinn": "Hero_Aislinn.png",
+    "Ajit": "Hero_Ajit_(HotA).png",
+    "Alagar": "Hero_Alagar.png",
+    "Alamar": "Hero_Alamar_(HotA).png",
+    "Alkin": "Hero_Alkin.png",
+    "Anabel": "Hero_Anabel.png",
+    "Andal": "Hero_Andal.png",
+    "Andra": "Hero_Andra.png",
+    "Arlach": "Hero_Arlach.png",
+    "Ash": "Hero_Ash.png",
+    "Astra": "Hero_Astra.png",
+    "Astral": "Hero_Astral.png",
+    "Axsis": "Hero_Axsis_(HotA).png",
+    "Ayden": "Hero_Ayden_(HotA).png",
+    "Beatrice": "Hero_Beatrice.png",
+    "Bertram": "Hero_Bertram.png",
+    "Bidley": "Hero_Bidley.png",
+    "Boragus": "Hero_Boragus.png",
+    "Brissa": "Hero_Brissa_(HotA).png",
+    "Broghild": "Hero_Broghild_(HotA).png",
+    "Bron": "Hero_Bron_(HotA).png",
+    "Caitlin": "Hero_Caitlin_(HotA).png",
+    "Calh": "Hero_Calh.png",
+    "Calid": "Hero_Calid.png",
+    "Casmetra": "Hero_Casmetra.png",
+    "Cassiopeia": "Hero_Cassiopeia.png",
+    "Catherine": "Hero_Catherine.png",
+    "Celestine": "Hero_Celestine.png",
+    "Charna": "Hero_Charna.png",
+    "Christian": "Hero_Christian.png",
+    "Ciele": "Hero_Ciele_(HotA).png",
+    "Clancy": "Hero_Clancy.png",
+    "Clavius": "Hero_Clavius.png",
+    "Corkes": "Hero_Corkes.png",
+    "Coronius": "Hero_Coronius_(HotA).png",
+    "Crag_Hack": "Hero_Crag_Hack.png",
+    "Cuthbert": "Hero_Cuthbert.png",
+    "Cyra": "Hero_Cyra.png",
+    "Dace": "Hero_Dace.png",
+    "Damacon": "Hero_Damacon_(HotA).png",
+    "Daremyth": "Hero_Daremyth.png",
+    "Dargem": "Hero_Dargem.png",
+    "Darkstorn": "Hero_Darkstorn.png",
+    "Deemer": "Hero_Deemer.png",
+    "Derek": "Hero_Derek.png",
+    "Dessa": "Hero_Dessa.png",
+    "Dracon": "Hero_Dracon.png",
+    "Drakon": "Hero_Drakon.png",
+    "Dury": "Hero_Dury.png",
+    "Eanswythe": "Hero_Eanswythe.png",
+    "Edric": "Hero_Edric.png",
+    "Elleshar": "Hero_Elleshar.png",
+    "Elmore": "Hero_Elmore.png",
+    "Eovacius": "Hero_Eovacius.png",
+    "Erdamon": "Hero_Erdamon_(HotA).png",
+    "Fafner": "Hero_Fafner.png",
+    "Fiona": "Hero_Fiona.png",
+    "Fiur": "Hero_Fiur_(HotA).png",
+    "Floribert": "Hero_Floribert.png",
+    "Frederick": "Hero_Frederick.png",
+    "Galthran": "Hero_Galthran_(HotA).png",
+    "Gelare": "Hero_Gelare_(HotA).png",
+    "Gelu": "Hero_Gelu.png",
+    "Gem": "Hero_Gem_(HotA).png",
+    "Geon": "Hero_Geon.png",
+    "Gerwulf": "Hero_Gerwulf.png",
+    "Gird": "Hero_Gird.png",
+    "Giselle": "Hero_Giselle.png",
+    "Gretchin": "Hero_Gretchin_(HotA).png",
+    "Grindan": "Hero_Grindan_(HotA).png",
+    "Gundula": "Hero_Gundula.png",
+    "Gunnar": "Hero_Gunnar_(HotA).png",
+    "Gurnisson": "Hero_Gurnisson_(HotA).png",
+    "Halon": "Hero_Halon.png",
+    "Henrietta": "Hero_Henrietta.png",
+    "Ignatius": "Hero_Ignatius.png",
+    "Ignissa": "Hero_Ignissa.png",
+    "Illor": "Hero_Illor.png",
+    "Ingham": "Hero_Ingham_(HotA).png",
+    "Inteus": "Hero_Inteus_(HotA).png",
+    "Iona": "Hero_Iona_(HotA).png",
+    "Isra": "Hero_Isra.png",
+    "Ivor": "Hero_Ivor.png",
+    "Jabarkas": "Hero_Jabarkas.png",
+    "Jaegar": "Hero_Jaegar.png",
+    "Jeddite": "Hero_Jeddite_(HotA).png",
+    "Jenova": "Hero_Jenova.png",
+    "Jeremy": "Hero_Jeremy.png",
+    "Josephine": "Hero_Josephine.png",
+    "Kalt": "Hero_Kalt_(HotA).png",
+    "Kilgor": "Hero_Kilgor.png",
+    "Kinkeria": "Hero_Kinkeria.png",
+    "Korbac": "Hero_Korbac.png",
+    "Krellion": "Hero_Krellion.png",
+    "Kyrre": "Hero_Kyrre_(HotA).png",
+    "Labetha": "Hero_Labetha_(HotA).png",
+    "Lacus": "Hero_Lacus.png",
+    "Leena": "Hero_Leena.png",
+    "Lord Haart Death Knight": "Hero_Lord_Haart_Death_Knight.png",
+    "Lord Haart Knight": "Hero_Lord_Haart_Knight.png",
+    "Lorelei": "Hero_Lorelei.png",
+    "Loynis": "Hero_Loynis.png",
+    "Luna": "Hero_Luna_(HotA).png",
+    "Malcom": "Hero_Malcom.png",
+    "Malekith": "Hero_Malekith.png",
+    "Manfred": "Hero_Manfred.png",
+    "Marius": "Hero_Marius_(HotA).png",
+    "Melchior": "Hero_Melchior.png",
+    "Melodia": "Hero_Melodia.png",
+    "Mephala": "Hero_Mephala.png",
+    "Merist": "Hero_Merist_(HotA).png",
+    "Miriam": "Hero_Miriam.png",
+    "Mirlanda": "Hero_Mirlanda.png",
+    "Moandor": "Hero_Moandor.png",
+    "Monere": "Hero_Monere_(HotA).png",
+    "Morton": "Hero_Morton.png",
+    "Murdoch": "Hero_Murdoch.png",
+    "Mutare": "Hero_Mutare.png",
+    "Mutare Drake": "Hero_Mutare_Drake.png",
+    "Nagash": "Hero_Nagash.png",
+    "Neela": "Hero_Neela_(HotA).png",
+    "Nimbus": "Hero_Nimbus_(HotA).png",
+    "Nymus": "Hero_Nymus_(HotA).png",
+    "Octavia": "Hero_Octavia.png",
+    "Olema": "Hero_Olema_(HotA).png",
+    "Oris": "Hero_Oris.png",
+    "Orrin": "Hero_Orrin.png",
+    "Pasis": "Hero_Pasis_(HotA).png",
+    "Piquedram": "Hero_Piquedram.png",
+    "Pyre": "Hero_Pyre.png",
+    "Ranloo": "Hero_Ranloo.png",
+    "Rashka": "Hero_Rashka.png",
+    "Rion": "Hero_Rion.png",
+    "Rissa": "Hero_Rissa.png",
+    "Roland": "Hero_Roland.png",
+    "Rosic": "Hero_Rosic.png",
+    "Ryland": "Hero_Ryland.png",
+    "Sam": "Hero_Sam.png",
+    "Sandro": "Hero_Sandro.png",
+    "Sanya": "Hero_Sanya.png",
+    "Saurug": "Hero_Saurug.png",
+    "Sephinroth": "Hero_Sephinroth_(HotA).png",
+    "Septienna": "Hero_Septienna.png",
+    "Serena": "Hero_Serena.png",
+    "Shakti": "Hero_Shakti.png",
+    "Shiva": "Hero_Shiva.png",
+    "Sir Mullich": "Hero_Sir_Mullich_(HotA).png",
+    "Solmyr": "Hero_Solmyr_(HotA).png",
+    "Sorsha": "Hero_Sorsha_(HotA).png",
+    "Spint": "Hero_Spint.png",
+    "Straker": "Hero_Straker.png",
+    "Styg": "Hero_Styg_(HotA).png",
+    "Sylvia": "Hero_Sylvia.png",
+    "Synca": "Hero_Synca.png",
+    "Tamika": "Hero_Tamika.png",
+    "Tancred": "Hero_Tancred.png",
+    "Tark": "Hero_Tark.png",
+    "Tavin": "Hero_Tavin.png",
+    "Tazar": "Hero_Tazar_(HotA).png",
+    "Terek": "Hero_Terek.png",
+    "Thane": "Hero_Thane.png",
+    "Thant": "Hero_Thant.png",
+    "Theodorus": "Hero_Theodorus.png",
+    "Thorgrim": "Hero_Thorgrim_(HotA).png",
+    "Thunar": "Hero_Thunar.png",
+    "Tiva": "Hero_Tiva_(HotA).png",
+    "Todd": "Hero_Todd.png",
+    "Torosar": "Hero_Torosar.png",
+    "Tyraxor": "Hero_Tyraxor_(HotA).png",
+    "Tyris": "Hero_Tyris.png",
+    "Ufretin": "Hero_Ufretin_(HotA).png",
+    "Uland": "Hero_Uland.png",
+    "Valeska": "Hero_Valeska_(HotA).png",
+    "Verdish": "Hero_Verdish.png",
+    "Vey": "Hero_Vey_(HotA).png",
+    "Victoria": "Hero_Victoria.png",
+    "Vidomina": "Hero_Vidomina.png",
+    "Vokial": "Hero_Vokial.png",
+    "Voy": "Hero_Voy.png",
+    "Wrathmont": "Hero_Wrathmont.png",
+    "Wynona": "Hero_Wynona.png",
+    "Wystan": "Hero_Wystan.png",
+    "Xarfax": "Hero_Xarfax.png",
+    "Xeron": "Hero_Xeron.png",
+    "Xsi": "Hero_Xsi.png",
+    "Xyron": "Hero_Xyron.png",
+    "Yog": "Hero_Yog_(HotA).png",
+    "Zilare": "Hero_Zilare.png",
+    "Ziph": "Hero_Ziph.png",
+    "Zubin": "Hero_Zubin_(HotA).png",
+    "Zydar": "Hero_Zydar.png",
+}
+
+
+def get_artifact_dom(art):
+    dom = ""
+    artifact = art["artifact"]
+    if artifact in ArtifactRes:
+        dom = dom + '<img src="report-res/artifacts/' + ArtifactRes[artifact] + '">'
+    else:
+        dom = dom + "<div>" + artifact + "</div>"
+    
+    if "owner" in art:
+        hero_name = art["owner"]
+        if hero_name in HeroRes:
+            dom = dom + "<img class=\"corner\" src=\"report-res/heroes/" + HeroRes[hero_name] + "\" />"
+        else:
+            dom = dom + "<div>:" + hero_name + "</div>"
+
+    return dom
+
+
 """HTML text shown in Help -> About dialog."""
 ABOUT_HTML = """<%
 import os, sys, wx
@@ -886,22 +1266,12 @@ colptr += state
 """
 Report inventory.
 
-@param   heroes      [Hero instance, ]
-@param   pluginmap   {name: plugin instance}
-@param   savefile    metadata.Savefile instance
-@param   count       total number of heroes
-@param   categories  {category: whether to show category columns initially}
+@param   by_combo      [Artifacts by combo]
 """
 HERO_INVENTORY_HTML = """
 <%
-import datetime, json
-from h3sed.lib import util
-from h3sed import conf, images, metadata, plugins
-
-deviceprops = pluginmap["stats"].props()
-deviceprops = deviceprops[next(i for i, x in enumerate(deviceprops) if "spellbook" == x["name"]):]
+from h3sed import templates
 %>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -950,7 +1320,7 @@ deviceprops = deviceprops[next(i for i, x in enumerate(deviceprops) if "spellboo
             bottom: 2px;
         }
 
-        .highlight {
+        .glow {
             box-shadow: inset 0 0 10px #FFFFA8;
         }
 
@@ -963,75 +1333,37 @@ deviceprops = deviceprops[next(i for i, x in enumerate(deviceprops) if "spellboo
 <body>
     <div class="container">
         <h2>Combos</h2>
+%for combo in by_combo:
         <table>
+    %for row in combo["rows"]:
             <tr>
-                <td class="relic"><img src="report-res/artifacts/Artifact_Angelic_Alliance.gif" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Sword_of_Judgement.gif" alt=""></td>
-                <td><img src="report-res/heroes/Hero_Darkstorn.png" alt=""></td>
-                <td></td>
+        %for art in row:
+            %if "highlight" in art:
+                <td class="{{ art["highlight"] }}">
+            %else:
+                <td>
+            %endif
+            %if "artifact" in art:
+                %if art["artifact"] in templates.ArtifactRes:
+                    <img src="report-res/artifacts/{{ templates.ArtifactRes[art["artifact"]] }}" />
+                %else:
+                    <div>{{ art["artifact"] }}</div>
+                %endif
+                %if "owner" in art:
+                    %if art["owner"] in templates.HeroRes:
+                    <img class="corner" src="report-res/heroes/{{ templates.HeroRes[art["owner"]] }}" />
+                    %else:
+                    <div>:{{ art["owner"] }}</div>
+                    %endif
+                %endif
+            %endif
+                </td>
+        %endfor
             </tr>
-            <tr>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Lion's_Shield_of_Courage.gif" alt=""></td>
-                <td><img src="report-res/heroes/Hero_Malekith.png" alt=""></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Helm_of_Heavenly_Enlightenment.gif" alt=""></td>
-                <td><img src="report-res/heroes/Hero_Malekith.png" alt=""></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Armor_of_Wonder.gif" alt=""></td>
-                <td><img src="report-res/heroes/Hero_Malekith.png" alt=""></td>
-                <td><img src="report-res/heroes/Hero_Darkstorn.png" alt=""></td>
-            </tr>
-            <tr>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Celestial_Necklace_of_Bliss.gif" alt=""></td>
-                <td><img src="report-res/heroes/Hero_Malekith.png" alt=""></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Sandals_of_the_Saint.gif" alt=""></td>
-                <td><img src="report-res/heroes/Hero_Malekith.png" alt=""></td>
-                <td></td>
-            </tr>
+    %endfor
         </table>
-        <h3></h3>
-        <table>
-            <tr>
-                <td><img src="report-res/artifacts/Artifact_Admiral's_Hat.gif" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Sea_Captain's_Hat.gif" alt=""></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Necklace_of_Ocean_Guidance.gif" alt=""></td>
-                <td><img src="report-res/heroes/Hero_Malekith.png" alt=""></td>
-            </tr>
-        </table>
-        <h3></h3>
-        <table>
-            <tr>
-                <td><img src="report-res/artifacts/Artifact_Pendant_of_Reflection.gif" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Surcoat_of_Counterpoise.gif" alt=""></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Boots_of_Polarity.gif" alt=""></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Garniture_of_Interference.gif" alt=""></td>
-                <td><img src="report-res/heroes/Hero_Malekith.png" alt=""></td>
-            </tr>
-        </table>
+        <br />
+%endfor
         <h2>Inventory</h2>
         <table>
             <tr>
