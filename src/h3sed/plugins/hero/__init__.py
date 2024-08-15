@@ -365,12 +365,6 @@ class HeroPlugin(object):
         reportRecent.ToolTip = "Report recent heroes to HTML"
         reportRecent.Bind(wx.EVT_BUTTON, self.on_report_recent)
 
-        reportOpened = wx.Button(indexpanel, label="Report Opened")
-        reportOpened.SetBitmap(bmpx)
-        reportOpened.SetBitmapMargins(0, 0)
-        reportOpened.ToolTip = "Report opened heroes to HTML"
-        reportOpened.Bind(wx.EVT_BUTTON, self.on_report_opened)
-
         export = wx.Button(indexpanel, label="Expo&rt")
         export.SetBitmap(bmpx)
         export.SetBitmapMargins(0, 0)
@@ -451,7 +445,6 @@ class HeroPlugin(object):
         sizer_opts.Add(sizer_labels, border=5, flag=wx.BOTTOM)
         sizer_opts.AddStretchSpacer()
         sizer_opts.Add(reportRecent, border=5, flag=wx.BOTTOM | wx.ALIGN_BOTTOM)
-        sizer_opts.Add(reportOpened, border=5, flag=wx.BOTTOM | wx.ALIGN_BOTTOM)
         sizer_opts.Add(export, border=5, flag=wx.BOTTOM | wx.ALIGN_BOTTOM)
         indexpanel.Sizer.Add(html, border=10, flag=wx.LEFT | wx.RIGHT | wx.GROW, proportion=1)
         indexpanel.Sizer.Add(sizer_opts, border=10, flag=wx.LEFT | wx.RIGHT | wx.GROW)
@@ -990,6 +983,7 @@ class HeroPlugin(object):
             tpl.stream(f, **tplargs)
         util.start_file(path)
 
+
     def on_report_recent(self, event):
         curr_map = ""
         recent_heroes = {}
@@ -1000,14 +994,6 @@ class HeroPlugin(object):
                 break
             recent_heroes[i_tuple[0]] = 1
         self.report_hero_inventory(recent_heroes)
-
-
-    def on_report_opened(self, event):
-        opened_heroes = {}
-        for index in self._pages.values():
-            i_hero = self._heroes[index]
-            opened_heroes[i_hero.name] = 1
-        self.report_hero_inventory(opened_heroes)
 
 
     def on_export_heroes(self, event):
