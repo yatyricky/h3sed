@@ -1351,15 +1351,15 @@ from h3sed import templates
             %endif
             %if "artifact" in art:
                 %if art["artifact"] in templates.ArtifactRes:
-                    <img src="report-res/artifacts/{{ templates.ArtifactRes[art["artifact"]] }}" />
+                    <img src="report-res/artifacts/{{ templates.ArtifactRes[art["artifact"]] }}" title="{{ art["artifact"] }}" />
                 %else:
                     <div>{{ art["artifact"] }}</div>
                 %endif
                 %if "owner" in art:
                     %if art["owner"] in templates.HeroRes:
-                    <img class="corner" src="report-res/heroes/{{ templates.HeroRes[art["owner"]] }}" />
+                    <img class="corner" src="report-res/heroes/{{ templates.HeroRes[art["owner"]] }}" title="{{ art["owner"] }}" />
                     %else:
-                    <div>:{{ art["owner"] }}</div>
+                    <div>{{ art["owner"] }}</div>
                     %endif
                 %endif
             %endif
