@@ -171,6 +171,18 @@ POS = {
 
 }
 
+SLOT_2_COL = {
+    "weapon": 1,
+    "shield": 2,
+    "helm": 3,
+    "armor": 4,
+    "hand": 5,
+    "neck": 7,
+    "cloak": 8,
+    "feet": 9,
+    "side": 10,
+}
+
 # Since savefile format is unknown, hero structs are identified heuristically,
 # by matching byte patterns.
 RGX_HERO = re.compile(b"""
@@ -820,132 +832,118 @@ class HeroPlugin(object):
                 saved["hname"] = i_hero_name
                 heroes.append(saved)
 
-        """ combo check """
         COMBOS = metadata.Store.get("artifact_combos", self.savefile.version)
-        # ARTIFACT_SLOTS = metadata.Store.get("artifact_slots", self.savefile.version)
-        # ARTIFACT_VALUABLES = metadata.Store.get("artifact_valuables", self.savefile.version)
-        # SLOT_CAPACITY = metadata.Store.get("slot_capacity", self.savefile.version)
-
-        # slot_2_col = {
-        #     "helm": 1,
-        #     "armor": 2,
-        #     "weapon": 3,
-        #     "shield": 4,
-        #     "neck": 5,
-        #     "hand": 6,
-        #     "feet": 8,
-        #     "cloak": 9,
-        #     "side": 10,
-        # }
-
-        # out_str = ""
-        # out_csv = [["Hero", "Helm", "Armor", "Weapon", "Shield", "Necklace", "Ring1", "Ring2", "Boots", "Cape", "Misc1", "Misc2", "Misc3", "Misc4", "Misc5"]]
-        # csv_artifacts = {
-        #     "helm": [],
-        #     "armor": [],
-        #     "weapon": [],
-        #     "shield": [],
-        #     "neck": [],
-        #     "hand": [],
-        #     "feet": [],
-        #     "cloak": [],
-        #     "side": [],
-        # }
+        ARTIFACT_SLOTS = metadata.Store.get("artifact_slots", self.savefile.version)
+        ARTIFACT_VALUABLES = metadata.Store.get("artifact_valuables", self.savefile.version)
+        SLOT_CAPACITY = metadata.Store.get("slot_capacity", self.savefile.version)
 
         all_artifacts = {} # key=Artifact name, Value=list of hero names
+        # add all items to all_artifacts
         def loop_art(l_art, hero_name):
             if l_art not in all_artifacts:
                 all_artifacts[l_art] = []
             all_artifacts[l_art].append(hero_name)
 
+        # all artifacts in slot and inventory
+        in_slot_inventory = []
+        in_invetory = {
+            "weapon": [],
+            "shield": [],
+            "helm": [],
+            "armor": [],
+            "hand": [],
+            "neck": [],
+            "cloak": [],
+            "feet": [],
+            "side": [],
+        }
 
         for i_hero in heroes:
             i_hero_name = i_hero["hname"]
 
-            # slots = {
-            #     "helm": [],
-            #     "armor": [],
-            #     "weapon": [],
-            #     "shield": [],
-            #     "neck": [],
-            #     "hand": [],
-            #     "feet": [],
-            #     "cloak": [],
-            #     "side": [],
-            # }
+            # get hero equipped info
+            in_slot = {
+                "weapon": [],
+                "shield": [],
+                "helm": [],
+                "armor": [],
+                "hand": [],
+                "neck": [],
+                "cloak": [],
+                "feet": [],
+                "side": [],
+            }
             for j_art in list((i_hero["artifacts"] or {}).values()):
                 if j_art is not None:
                     loop_art(j_art, i_hero_name)
-                    # if not j_art.startswith("Spell Scroll"):
-                    #     for idx, slot in enumerate(ARTIFACT_SLOTS[j_art]):
-                    #         if idx == 0:
-                    #             slots[slot].append(j_art)
-                    #         else:
-                    #             slots[slot].append("lock")
 
-            # for slot, equipped in slots.items():
-            #     l_missing = SLOT_CAPACITY[slot] - len(equipped)
-            #     if l_missing < 0:
-            #         raise ValueError("What the hell?" + slot)
+                    if j_art.startswith("Spell Scroll"):
+                        in_slot["side"].append({ "artifact": j_art } )
+                    else:
+                        for k, slot in enumerate(ARTIFACT_SLOTS[j_art]):
+                            if k == 0:
+                                in_slot[slot].append({ "artifact": j_art } )
+                            else:
+                                in_slot[slot].append({ "artifact": "lock" })
 
-            #     for cnt in range(l_missing):
-            #         equipped.append("")
+            for slot, equipped in in_slot.items():
+                l_missing = SLOT_CAPACITY[slot] - len(equipped)
+                if l_missing < 0:
+                    raise ValueError("What the hell?" + slot)
+                for _ in range(l_missing):
+                    equipped.append({})
 
-            # csv_row = [i_hero_name]
-            # csv_row = csv_row + slots["helm"]
-            # csv_row = csv_row + slots["armor"]
-            # csv_row = csv_row + slots["weapon"]
-            # csv_row = csv_row + slots["shield"]
-            # csv_row = csv_row + slots["neck"]
-            # csv_row = csv_row + slots["hand"]
-            # csv_row = csv_row + slots["feet"]
-            # csv_row = csv_row + slots["cloak"]
-            # csv_row = csv_row + slots["side"]
-            # out_csv.append(csv_row)
+            row = [{ "hero": i_hero_name }]
+            row = row + in_slot["weapon"]
+            row = row + in_slot["shield"]
+            row = row + in_slot["helm"]
+            row = row + in_slot["armor"]
+            row = row + in_slot["hand"]
+            row = row + in_slot["neck"]
+            row = row + in_slot["cloak"]
+            row = row + in_slot["feet"]
+            row = row + in_slot["side"]
+            in_slot_inventory.append(row)
 
             for j_art in (i_hero["inventory"] or []):
                 if j_art is not None:
                     loop_art(j_art, i_hero_name)
-                    # if not j_art.startswith("Spell Scroll"):
-                    #     l_art_slot = ARTIFACT_SLOTS[j_art][0]
-                    #     csv_artifacts[l_art_slot].append(j_art + " - " + i_hero_name)
-                    # else:
-                    #     csv_artifacts["side"].append(j_art + " - " + i_hero_name)
 
-        # while True:
-        #     csv_ex_row = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
-        #     has_value = False
-        #     for l_slot, l_ex_art in csv_artifacts.items():
-        #         if len(l_ex_art) > 0:
-        #             has_value = True
-        #             start_col = slot_2_col[l_slot]
-        #             slots_count = SLOT_CAPACITY[l_slot]
-        #             for k in range(slots_count):
-        #                 k_ele = l_ex_art.pop()
-        #                 csv_ex_row[start_col + k] = k_ele
-        #                 if len(l_ex_art) == 0:
-        #                     break
+                    item_obj = { "artifact": j_art, "owner": i_hero_name }
+                    if j_art in ARTIFACT_VALUABLES:
+                        if ARTIFACT_VALUABLES[j_art] == 1:
+                            item_obj["highlight"] = "glow"
+                        elif ARTIFACT_VALUABLES[j_art] == 2:
+                            item_obj["highlight"] = "relic"
+                        else:
+                            item_obj["highlight"] = "wtf"
 
-        #     if not has_value:
-        #         break
-        #     else:
-        #         out_csv.append(csv_ex_row)
+                    if j_art.startswith("Spell Scroll"):
+                        in_invetory["side"].append(item_obj)
+                    else:
+                        l_art_slot = ARTIFACT_SLOTS[j_art][0]
+                        in_invetory[l_art_slot].append(item_obj)
 
-        # """csv report"""
-        # for row in out_csv:
-        #     for idx, cell in enumerate(row):
-        #         if " - " in cell:
-        #             l_split_cell = cell.split(" - ")
-        #             l_art_name = l_split_cell[0]
-        #             if l_art_name in ARTIFACT_VALUABLES:
-        #                 row[idx] = str(ARTIFACT_VALUABLES[l_art_name]) + cell
+        for _, item_list in in_invetory.items():
+            item_list.sort(key=lambda e: e["artifact"])
 
-        # csv_str = ""
-        # for row in out_csv:
-        #     csv_str = csv_str + ",".join(row) + "\n"
-
-        # with open("homm3_report.csv", "w") as fh_csv:
-        #     fh_csv.write(csv_str)
+        while True:
+            csv_ex_row = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+            has_value = False
+            for l_slot, l_ex_art in in_invetory.items():
+                if len(l_ex_art) > 0:
+                    has_value = True
+                    start_col = SLOT_2_COL[l_slot]
+                    slots_count = SLOT_CAPACITY[l_slot]
+                    for k in range(slots_count):
+                        k_ele = l_ex_art.pop()
+                        csv_ex_row[start_col + k] = k_ele
+                        if len(l_ex_art) == 0:
+                            break
+            if not has_value:
+                break
+            else:
+                in_slot_inventory.append(csv_ex_row)
 
         # all artifacts by combo
         by_combo = []
@@ -974,11 +972,10 @@ class HeroPlugin(object):
                 by_combo.append(a_combo)
         by_combo.sort(key=lambda e: e["count"], reverse=True)
 
-
         # report in html
         path = "report.html"
         tpl = step.Template(templates.HERO_INVENTORY_HTML, strip=False, escape=True)
-        tplargs = dict(by_combo=by_combo)
+        tplargs = dict(by_combo=by_combo, by_slot=in_slot_inventory)
         with open(path, "wb") as f:
             tpl.stream(f, **tplargs)
         util.start_file(path)

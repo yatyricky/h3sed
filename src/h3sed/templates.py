@@ -223,6 +223,79 @@ ArtifactRes = {
     "lock": "lock.png",
 }
 
+SpellRes = {
+    "Spell Scroll Air Shield": "Air_Shield.png",
+    "Spell Scroll Animate Dead": "Animate_Dead.png",
+    "Spell Scroll Anti-Magic": "Anti-Magic.png",
+    "Spell Scroll Armageddon": "Armageddon.png",
+    "Spell Scroll Berserk": "Berserk.png",
+    "Spell Scroll Bless": "Bless.png",
+    "Spell Scroll Blind": "Blind.png",
+    "Spell Scroll Bloodlust": "Bloodlust.png",
+    "Spell Scroll Chain Lightning": "Chain_Lightning.png",
+    "Spell Scroll Clone": "Clone.png",
+    "Spell Scroll Counterstrike": "Counterstrike.png",
+    "Spell Scroll Cure": "Cure.png",
+    "Spell Scroll Curse": "Curse.png",
+    "Spell Scroll Death Ripple": "Death_Ripple.png",
+    "Spell Scroll Destroy Undead": "Destroy_Undead.png",
+    "Spell Scroll Dimension Door": "Dimension_Door.png",
+    "Spell Scroll Disguise": "Disguise.png",
+    "Spell Scroll Dispel": "Dispel.png",
+    "Spell Scroll Disrupting Ray": "Disrupting_Ray.png",
+    "Spell Scroll Earthquake": "Earthquake.png",
+    "Spell Scroll Fireball": "Fireball.png",
+    "Spell Scroll Fire Shield": "Fire_Shield.png",
+    "Spell Scroll Fire Wall": "Fire_Wall.png",
+    "Spell Scroll Fly": "Fly.png",
+    "Spell Scroll Force Field": "Force_Field.png",
+    "Spell Scroll Forgetfulness": "Forgetfulness.png",
+    "Spell Scroll Fortune": "Fortune.png",
+    "Spell Scroll Frenzy": "Frenzy.png",
+    "Spell Scroll Frost Ring": "Frost_Ring.png",
+    "Spell Scroll Haste": "Haste.png",
+    "Spell Scroll Hypnotize": "Hypnotize.png",
+    "Spell Scroll Ice Bolt": "Ice_Bolt.png",
+    "Spell Scroll Implosion": "Implosion.png",
+    "Spell Scroll Inferno": "Inferno.png",
+    "Spell Scroll Land Mine": "Land_Mine.png",
+    "Spell Scroll Lightning Bolt": "Lightning_Bolt.png",
+    "Spell Scroll Magic Arrow": "Magic_Arrow.png",
+    "Spell Scroll Magic Mirror": "Magic_Mirror.png",
+    "Spell Scroll Meteor Shower": "Meteor_Shower.png",
+    "Spell Scroll Mirth": "Mirth.png",
+    "Spell Scroll Misfortune": "Misfortune.png",
+    "Spell Scroll Prayer": "Prayer.png",
+    "Spell Scroll Precision": "Precision.png",
+    "Spell Scroll Protection from Air": "Protection_from_Air.png",
+    "Spell Scroll Protection from Earth": "Protection_from_Earth.png",
+    "Spell Scroll Protection from Fire": "Protection_from_Fire.png",
+    "Spell Scroll Protection from Water": "Protection_from_Water.png",
+    "Spell Scroll Quicksand": "Quicksand.png",
+    "Spell Scroll Remove Obstacle": "Remove_Obstacle.png",
+    "Spell Scroll Resurrection": "Resurrection.png",
+    "Spell Scroll Sacrifice": "Sacrifice.png",
+    "Spell Scroll Scuttle Boat": "Scuttle_Boat.png",
+    "Spell Scroll Shield": "Shield.png",
+    "Spell Scroll Slayer": "Slayer.png",
+    "Spell Scroll Slow": "Slow.png",
+    "Spell Scroll Sorrow": "Sorrow.png",
+    "Spell Scroll Stone Skin": "Stone_Skin.png",
+    "Spell Scroll Summon Air Elemental": "Summon_Air_Elemental.png",
+    "Spell Scroll Summon Boat": "Summon_Boat.png",
+    "Spell Scroll Summon Earth Elemental": "Summon_Earth_Elemental.png",
+    "Spell Scroll Summon Fire Elemental": "Summon_Fire_Elemental.png",
+    "Spell Scroll Summon Water Elemental": "Summon_Water_Elemental.png",
+    "Spell Scroll Teleport": "Teleport.png",
+    "Spell Scroll Titan's Lightning Bolt": "Titan's_Lightning_Bolt.png",
+    "Spell Scroll Town Portal": "Town_Portal.png",
+    "Spell Scroll View Air": "View_Air.png",
+    "Spell Scroll View Earth": "View_Earth.png",
+    "Spell Scroll Visions": "Visions.png",
+    "Spell Scroll Water Walk": "Water_Walk.png",
+    "Spell Scroll Weakness": "Weakness.png",
+}
+
 HeroRes = {
     "Adela": "Hero_Adela.png",
     "Adelaide": "Hero_Adelaide_(HotA).png",
@@ -1267,6 +1340,7 @@ colptr += state
 Report inventory.
 
 @param   by_combo      [Artifacts by combo]
+@param   by_slot       [Artifacts by slot]
 """
 HERO_INVENTORY_HTML = """
 <%
@@ -1371,121 +1445,47 @@ from h3sed import templates
 %endfor
         <h2>Inventory</h2>
         <table>
+%for row in by_slot:
             <tr>
-                <td><img src="report-res/heroes/Hero_Melchior.png" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Sword_of_Judgement.gif" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Lion's_Shield_of_Courage.gif" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Helm_of_Heavenly_Enlightenment.gif" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Dragon_Scale_Armor.gif" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Equestrian's_Gloves.gif" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Still_Eye_of_the_Dragon.gif" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Celestial_Necklace_of_Bliss.gif" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Angel_Wings.gif" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Wayfarer's_Boots.gif" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Wizard's_Well.gif" alt=""></td>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Hideous_Mask.gif" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Shackles_of_War.gif" alt=""></td>
-            </tr>
-            <tr>
-                <td><img src="report-res/heroes/Hero_Malekith.png" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Greater_Gnoll's_Flail.gif" alt=""></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><img src="report-res/artifacts/Artifact_Eversmoking_Ring_of_Sulfur.gif" alt=""></td>
-                <td></td>
-                <td><img src="report-res/artifacts/Artifact_Necklace_of_Ocean_Guidance.gif" alt=""></td>
-                <td></td>
-                <td></td>
-                <td><img src="report-res/artifacts/Artifact_Endless_Purse_of_Gold.gif" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Arms_of_Legion.gif" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Ladybird_of_Luck.gif" alt=""></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><img src="report-res/heroes/Hero_Mutare_Drake.png" alt=""></td>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Power_of_the_Dragon_Father.gif" alt=""></td>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Tome_of_Fire.gif" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Orb_of_Tempestuous_Fire.gif" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Wizard's_Well.gif" alt=""></td>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-                <td><img src="report-res/artifacts/lock.png" alt=""></td>
-            </tr>
-            <tr>
-                <td></td>
+    %for cell in row:
+        %if "highlight" in cell:
+                <td class="{{ cell["highlight"] }}">
+        %else:
                 <td>
-                    <img src="report-res/artifacts/Artifact_Red_Dragon_Flame_Tongue.gif" alt="">
-                    <img class="corner" src="report-res/heroes/Hero_Sephinroth_(HotA).png" alt="">
+        %endif
+        %if "hero" in cell:
+            %if cell["hero"] in templates.HeroRes:
+                    <img src="report-res/heroes/{{ templates.HeroRes[cell["hero"]] }}" title="{{ cell["hero"] }}" />
+            %else:
+                    <div>{{ cell["hero"] }}</div>
+            %endif
+        %endif
+        %if "artifact" in cell:
+            %if cell["artifact"].startswith("Spell Scroll"):
+                %if cell["artifact"] in templates.SpellRes:
+                        <img src="report-res/spells/{{ templates.SpellRes[cell["artifact"]] }}" title="{{ cell["artifact"] }}">
+                %else:
+                        <div>{{ cell["artifact"] }}</div>
+                %endif
+            %else:
+                %if cell["artifact"] in templates.ArtifactRes:
+                        <img src="report-res/artifacts/{{ templates.ArtifactRes[cell["artifact"]] }}" title="{{ cell["artifact"] }}">
+                %else:
+                        <div>{{ cell["artifact"] }}</div>
+                %endif
+            %endif
+        %endif
+        %if "owner" in cell:
+            %if cell["owner"] in templates.HeroRes:
+                    <img class="corner" src="report-res/heroes/{{ templates.HeroRes[cell["owner"]] }}" title="{{ cell["owner"] }}">
+            %else:
+                    <div>{{ cell["owner"] }}</div>
+            %endif
+        %endif
                 </td>
-                <td></td>
-                <td></td>
-                <td class="relic"><img src="report-res/artifacts/Artifact_Armor_of_the_Damned.gif" alt="">
-                    <img class="corner" src="report-res/heroes/Hero_Piquedram.png" alt=""></td>
-                <td><img src="report-res/artifacts/Artifact_Ring_of_Suppression.gif" alt="">
-                    <img class="corner" src="report-res/heroes/Hero_Uland.png" alt="">
-                </td>
-                <td><img src="report-res/artifacts/Artifact_Ring_of_the_Wayfarer.gif" alt="">
-                    <img class="corner" src="report-res/heroes/Hero_Calh.png" alt="">
-                </td>
-                <td><img src="report-res/artifacts/Artifact_Necklace_of_Dragonteeth.gif" alt="">
-                    <img class="corner" src="report-res/heroes/Hero_Rissa.png" alt="">
-                </td>
-                <td></td>
-                <td></td>
-                <td class="highlight"><img src="report-res/artifacts/Artifact_Endless_Sack_of_Gold.gif" alt="">
-                    <img class="corner" src="report-res/heroes/Hero_Dracon.png" alt="">
-                </td>
-                <td><img src="report-res/artifacts/Artifact_Shaman's_Puppet.gif" alt="">
-                    <img class="corner" src="report-res/heroes/Hero_Gelu.png" alt="">
-                </td>
-                <td><img src="report-res/artifacts/Artifact_Charm_of_Mana.gif" alt="">
-                    <img class="corner" src="report-res/heroes/Hero_Grindan_(HotA).png" alt="">
-                </td>
-                <td><img src="report-res/artifacts/Artifact_Charm_of_Eclipse.gif" alt="">
-                    <img class="corner" src="report-res/heroes/Hero_Vidomina.png" alt="">
-                </td>
-                <td class="highlight"><img src="report-res/artifacts/Artifact_Everpouring_Vial_of_Mercury.gif" alt="">
-                    <img class="corner" src="report-res/heroes/Hero_Gretchin_(HotA).png" alt="">
-                </td>
+    %endfor
             </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><img src="report-res/artifacts/Artifact_Ring_of_Life.gif" alt="">
-                    <img class="corner" src="report-res/heroes/Hero_Gelu.png" alt="">
-                </td>
-                <td></td>
-                <td><img src="report-res/artifacts/Artifact_Pendant_of_Second_Sight.gif" alt="">
-                    <img class="corner" src="report-res/heroes/Hero_Vidomina.png" alt="">
-                </td>
-                <td></td>
-                <td></td>
-                <td><img src="report-res/artifacts/Artifact_Stoic_Watchman.gif" alt="">
-                    <img class="corner" src="report-res/heroes/Hero_Thant.png" alt="">
-                </td>
-                <td><img src="report-res/artifacts/Artifact_Speculum.gif" alt="">
-                    <img class="corner" src="report-res/heroes/Hero_Septienna.png" alt="">
-                </td>
-                <td><img src="report-res/spells/Summon_Air_Elemental.png" alt="">
-                    <img class="corner" src="report-res/heroes/Hero_Septienna.png" alt=""></td>
-                <td class="highlight"><img src="report-res/spells/Town_Portal.png" alt="">
-                    <img class="corner" src="report-res/heroes/Hero_Septienna.png" alt=""></td>
-                <td></td>
-            </tr>
+%endfor
         </table>
     </div>
 </body>

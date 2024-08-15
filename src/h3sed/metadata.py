@@ -1052,46 +1052,6 @@ ArtifactCombos = {
 
 
 ArtifactValuables = {
-    "Admiral's Hat": 2,
-    "Pendant of Reflection": 2,
-    "Ring of the Magi": 2,
-    "Angelic Alliance": 2,
-    "Titan's Thunder": 2,
-    "Ironfist of the Ogre": 2,
-    "Armor of the Damned": 2,
-    "Power of the Dragon Father": 2,
-    "Bow of the Sharpshooter": 2,
-    "Cornucopia": 2,
-    "Elixir of Life": 2,
-    "Statue of Legion": 2,
-    "Wizard's Well": 2,
-    "Golden Goose": 2,
-    "Cloak of the Undead King": 2,
-    "Diplomat's Cloak": 2,
-
-    "Torso of Legion": 1,
-    "Head of Legion": 1,
-    "Legs of Legion": 1,
-    "Loins of Legion": 1,
-    "Arms of Legion": 1,
-
-    "Endless Bag of Gold": 1,
-    "Endless Purse of Gold": 1,
-    "Endless Sack of Gold": 1,
-    "Inexhaustible Cart of Lumber": 1,
-    "Inexhaustible Cart of Ore": 1,
-    "Everpouring Vial of Mercury": 1,
-    "Everflowing Crystal Cloak": 1,
-    "Eversmoking Ring of Sulfur": 1,
-    "Ring of Infinite Gems": 1,
-
-    "Vial of Dragon Blood": 2,
-    "Horn of the Abyss": 2,
-    "Armageddon's Blade": 2,
-}
-
-
-ArtifactValuables = {
     "Torso of Legion": 1,
     "Head of Legion": 1,
     "Legs of Legion": 1,
