@@ -831,6 +831,7 @@ class HeroPlugin(object):
                 saved = yaml.safe_load(i_hero.yaml.replace("Scroll:", "Scroll"))[i_hero_name]
                 saved["hname"] = i_hero_name
                 heroes.append(saved)
+        heroes.sort(key=lambda e: e["stats"]["exp"], reverse=True)
 
         COMBOS = metadata.Store.get("artifact_combos", self.savefile.version)
         ARTIFACT_SLOTS = metadata.Store.get("artifact_slots", self.savefile.version)
@@ -948,7 +949,7 @@ class HeroPlugin(object):
         # all artifacts by combo
         by_combo = []
         for item, parts in COMBOS.items():
-            a_combo = { "rows": [], "count": 0 }
+            a_combo = { "rows": [], "norm_count": 0 }
             for j, part in enumerate(parts):
                 row = []
                 if j == 0:
@@ -965,12 +966,22 @@ class HeroPlugin(object):
             if max_count > 1:
                 if min_count > 1:
                     a_combo["rows"][0][0]["highlight"] = "relic"
-                a_combo["count"] = min_count
                 for row in a_combo["rows"]:
                     for _ in range(max_count - len(row)):
                         row.append({})
+
+                norm_count = 0
+                for j in range(max_count - 1):
+                    col_count = 0
+                    for row in a_combo["rows"]:
+                        if bool(row[j + 1]):
+                            col_count += 1
+                    norm_count += (10 - (len(parts) - col_count)) / pow(10, j + 1)
+                a_combo["norm_count"] = norm_count
+
                 by_combo.append(a_combo)
-        by_combo.sort(key=lambda e: e["count"], reverse=True)
+
+        by_combo.sort(key=lambda e: e["norm_count"], reverse=True)
 
         # report in html
         path = "report.html"
