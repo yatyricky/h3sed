@@ -270,7 +270,7 @@ ArtifactSlots = {
     "Demon's Horseshoe":                 ["side"],
     "Diplomat's Cloak":                  ["cloak", "neck", "hand"],
     "Elixir of Life":                    ["side", "hand", "hand"],
-    "Golden Goose":                      ["side"],
+    "Golden Goose":                      ["side", "side", "side"],
     "Hideous Mask":                      ["side"],
     "Horn of the Abyss":                 ["side"],
     "Ironfist of the Ogre":              ["weapon", "helm", "armor", "shield",],
