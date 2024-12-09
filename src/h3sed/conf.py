@@ -26,8 +26,8 @@ import sys
 """Program title, version number and version date."""
 Name = "h3sed"
 Title = "Heroes3 Savegame Editor"
-Version = "2.6.4"
-VersionDate = "25.06.2024"
+Version = "2.6.5"
+VersionDate = "09.12.2024"
 
 Frozen = getattr(sys, "frozen", False)
 if Frozen:
@@ -159,7 +159,7 @@ StatusShortFlashLength = 5
 MaxRecentFiles = 20
 
 """How many items in the Recent Heroes menu."""
-MaxRecentHeroes = 20
+MaxRecentHeroes = 30
 
 """Path for licences of bundled open-source software."""
 LicenseFile = os.path.join(ResourceDirectory, "3rd-party licenses.txt") if Frozen else None
