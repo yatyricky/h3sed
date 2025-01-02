@@ -339,7 +339,7 @@ HeroRes = {
     "Clavius": "Hero_Clavius.png",
     "Corkes": "Hero_Corkes.png",
     "Coronius": "Hero_Coronius_(HotA).png",
-    "Crag_Hack": "Hero_Crag_Hack.png",
+    "Crag Hack": "Hero_Crag_Hack.png",
     "Cuthbert": "Hero_Cuthbert.png",
     "Cyra": "Hero_Cyra.png",
     "Dace": "Hero_Dace.png",
