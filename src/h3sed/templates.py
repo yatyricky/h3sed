@@ -1411,6 +1411,21 @@ from h3sed import templates
 </head>
 
 <body>
+    <script>
+function hover(className){
+    let heroes = document.getElementsByClassName(className)
+    for (const hero of heroes) {
+        hero.style.border = "solid 2px #FFFFA8"
+    }
+}
+
+function outHero(className){
+    let heroes = document.getElementsByClassName(className)
+    for (const hero of heroes) {
+        hero.style.border = ""
+    }
+}
+    </script>
     <div class="container">
         <h2>Combos</h2>
 %for combo in by_combo:
@@ -1431,7 +1446,7 @@ from h3sed import templates
                 %endif
                 %if "owner" in art:
                     %if art["owner"] in templates.HeroRes:
-                    <img class="corner" src="report-res/heroes/{{ templates.HeroRes[art["owner"]] }}" title="{{ art["owner"] }}" />
+                    <img class="corner {{ art["ownerClassName"] }}" src="report-res/heroes/{{ templates.HeroRes[art["owner"]] }}" title="{{ art["owner"] }}" onmouseover="hover('{{ art["ownerClassName"] }}')" onmouseout="outHero('{{ art["ownerClassName"] }}')" />
                     %else:
                     <div>{{ art["owner"] }}</div>
                     %endif

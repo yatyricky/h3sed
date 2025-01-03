@@ -958,7 +958,7 @@ class HeroPlugin(object):
                     row.append({ "artifact": "lock" })
                 if part in all_artifacts:
                     for hero_name in all_artifacts[part]:
-                        row.append({ "artifact": part, "owner": hero_name })
+                        row.append({ "artifact": part, "owner": hero_name, "ownerClassName": hero_name.replace(" ", "_") })
                 a_combo["rows"].append(row)
             lens = [len(row) for row in a_combo["rows"]]
             min_count = min(lens)
