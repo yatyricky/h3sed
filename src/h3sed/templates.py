@@ -1412,17 +1412,24 @@ from h3sed import templates
 
 <body>
     <script>
-function hover(className){
+function toggleHero(className) {
     let heroes = document.getElementsByClassName(className)
+    let flag = false
     for (const hero of heroes) {
-        hero.style.border = "solid 2px #FFFFA8"
+        if (!hero.style.border || hero.style.border === "") {
+            flag = true
+        }
+        break
     }
-}
-
-function outHero(className){
-    let heroes = document.getElementsByClassName(className)
-    for (const hero of heroes) {
-        hero.style.border = ""
+    if (flag) {
+        let color = `solid 2px rgb(${Math.floor(Math.random() * 128) + 128}, ${Math.floor(Math.random() * 128) + 128}, ${Math.floor(Math.random() * 128) + 128})`
+        for (const hero of heroes) {
+            hero.style.border = color
+        }
+    } else {
+        for (const hero of heroes) {
+            hero.style.border = ""
+        }
     }
 }
     </script>
@@ -1446,7 +1453,7 @@ function outHero(className){
                 %endif
                 %if "owner" in art:
                     %if art["owner"] in templates.HeroRes:
-                    <img class="corner {{ art["ownerClassName"] }}" src="report-res/heroes/{{ templates.HeroRes[art["owner"]] }}" title="{{ art["owner"] }}" onmouseover="hover('{{ art["ownerClassName"] }}')" onmouseout="outHero('{{ art["ownerClassName"] }}')" />
+                    <img class="corner {{ art["ownerClassName"] }}" src="report-res/heroes/{{ templates.HeroRes[art["owner"]] }}" title="{{ art["owner"] }}" onclick="toggleHero('{{ art["ownerClassName"] }}')" />
                     %else:
                     <div>{{ art["owner"] }}</div>
                     %endif
