@@ -495,6 +495,23 @@ HeroRes = {
     "Ziph": "Hero_Ziph.png",
     "Zubin": "Hero_Zubin_(HotA).png",
     "Zydar": "Hero_Zydar.png",
+    "Allora": "Hero_Allora.png",
+    "Vehr": "Hero_Vehr.png",
+    "Akka": "Hero_Akka.png",
+    "Haugir": "Hero_Haugir.png",
+    "Biarma": "Hero_Biarma.png",
+    "Dalton": "Hero_Dalton.png",
+    "Sial": "Hero_Sial.png",
+    "Glacius": "Hero_Glacius.png",
+    "Kriv": "Hero_Kriv.png",
+    "Ergon": "Hero_Ergon.png",
+    "Kynr": "Hero_Kynr.png",
+    "Spadum": "Hero_Spadum.png",
+    "Creyle": "Hero_Creyle.png",
+    "Eikthurn": "Hero_Eikthurn.png",
+    "Neia": "Hero_Neia.png",
+    "Oidana": "Hero_Oidana.png",
+    "Dhuin": "Hero_Dhuin.png",
 }
 
 
