@@ -81,15 +81,12 @@ import collections
 import copy
 import functools
 import glob
-import gzip
 import importlib
 import json
 import logging
 import os
 import re
-import struct
 import sys
-import zlib
 
 import step
 import yaml
@@ -113,93 +110,6 @@ logger = logging.getLogger(__package__)
 
 PLUGINS = [] # Loaded plugins as [{name, module}, ]
 PROPS   = {"name": "hero", "label": "Hero", "icon": images.PageHero}
-
-
-def _read_gm1(filename):
-    """Read and decompress a GM1 file."""
-    try:
-        with gzip.open(filename, 'rb') as f:
-            return bytearray(f.read())
-    except gzip.BadGzipFile:
-        with open(filename, 'rb') as f:
-            f.read(10)
-            data = f.read()
-            decomp = zlib.decompressobj(-zlib.MAX_WBITS)
-            return bytearray(decomp.decompress(data))
-
-
-def _find_all_heroes(data):
-    """Find all hero structures."""
-    heroes = []
-    pos = 30000
-    while pos < len(data) - 150:
-        chunk = data[pos:pos+13]
-        try:
-            null_pos = chunk.index(0)
-            if 3 <= null_pos <= 12:
-                name_bytes = chunk[:null_pos]
-                if all(32 <= b < 127 for b in name_bytes):
-                    name = name_bytes.decode('ascii')
-                    if name and name[0].isupper() and name.replace(' ', '').isalpha():
-                        struct_start = pos - 138
-                        if struct_start >= 0:
-                            movement = struct.unpack('<I', data[struct_start:struct_start+4])[0]
-                            if 0 < movement < 100000:
-                                heroes.append({
-                                    'name': name,
-                                    'struct_start': struct_start,
-                                    'name_pos': pos
-                                })
-                                pos += 1000
-                                continue
-        except (ValueError, UnicodeDecodeError):
-            pass
-        pos += 1
-    return heroes
-
-
-def _extract_hero_ownership(filename):
-    """
-    Extract heroes grouped by owner.
-    
-    Owner byte is located at offset -31 from the hero struct start.
-    Value 255 indicates neutral/unowned heroes (in taverns).
-    """
-    data = _read_gm1(filename)
-    heroes = _find_all_heroes(data)
-    
-    player_heroes = collections.defaultdict(list)
-    
-    # Owner byte is at offset -31 (31 bytes before hero struct start)
-    OWNER_OFFSET = -31
-    
-    for hero in heroes:
-        struct_start = hero['struct_start']
-        owner_pos = struct_start + OWNER_OFFSET
-        
-        if 0 <= owner_pos < len(data):
-            owner = data[owner_pos]
-            player_heroes[owner].append(hero['name'])
-        else:
-            # Invalid position, mark as unknown
-            player_heroes[255].append(hero['name'])
-    
-    return player_heroes
-
-
-def get_heroes_by_player(filename, player_id):
-    """
-    Get list of hero names for a specific player.
-    
-    Args:
-        filename: Path to GM1 savefile
-        player_id: Player ID (0=red, 1=blue, 2=tan, 3=green, 4=orange, 5=purple, 6=teal, 7=pink, 255=neutral)
-    
-    Returns:
-        List of hero names owned by the specified player
-    """
-    player_heroes = _extract_hero_ownership(filename)
-    return sorted(player_heroes.get(player_id, []))
 
 
 # Index for byte start of various attributes in hero bytearray
@@ -1084,7 +994,7 @@ class HeroPlugin(object):
 
     def on_report_red(self, event):
         # Get heroes owned by red player (player ID 0) from savefile
-        hero_names = get_heroes_by_player(self.savefile.filename, 0)
+        hero_names = self.savefile.get_heroes_by_player(self._heroes, 0)
         recent_heroes = {name: 1 for name in hero_names}
         self.report_hero_inventory(recent_heroes)
 

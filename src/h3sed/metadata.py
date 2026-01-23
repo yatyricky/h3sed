@@ -11,6 +11,7 @@ Released under the MIT License.
 ------------------------------------------------------------------------------
 """
 from collections import defaultdict, OrderedDict
+import collections
 import copy
 import datetime
 import gzip
@@ -1246,6 +1247,14 @@ class Savefile(object):
             if v is None or (minv >= 0 and v < minv) or (maxv >= 0 and v > maxv):
                 return False
         return True
+
+
+    def get_heroes_by_player(self, heroes, player_id):
+        player_heroes = collections.defaultdict(list)
+        for hero in heroes:
+            faction = self.raw[hero.span[0] - 31]
+            player_heroes[faction].append(hero.name)
+        return sorted(player_heroes[player_id])
 
 
 
